@@ -7,6 +7,27 @@
             border-style: 2px solid;
             border-style: double
         }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite; /* Safari */
+            animation: spin 2s linear infinite;
+            }
+
+            /* Safari */
+            @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+            }
+
+            @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+            }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -15,7 +36,9 @@
 <body>
     <h1 id="home">Pesti ingatlan aukciók</h1>
     <a href="https://arveres.mbvk.hu"  target="_blank" rel="noopener noreferrer">MBVK honlap</a>
+    <hr/>
     <div id="postcode_links"></div>
+    <div id="loader" class="loader"></div>
     <div id="auctions"></div>
     <script>
         async function fetch_auctions() {
@@ -65,12 +88,13 @@
                 auctions.innerHTML += `<a href="${h['map_url']}" target="_blank" rel="noopener noreferrer">Google Maps</a></div>`
             }
             let postcode_links = document.getElementById("postcode_links");
-            postcode_links.innerHTML += "<hr/>"
+
             for (let p of postcodes.values()) {
                 postcode_links.innerHTML += `<a class="postcode" href=#${p}>${p}</a>`
             }
             postcode_links.innerHTML += "<br>"
-
+            let loader = document.getElementById("loader");
+            loader.parentElement.removeChild(loader);
             houses = result;
         })
     </script>
