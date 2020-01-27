@@ -10,13 +10,38 @@
   <body>
     <h1>Yo!</h1>
     <h2>Give me an address to parse from /proc/net/tcp</h2>
-    <input placeholder="03001CAC:CD96" name="name" pattern="[0-9ABCDEF]{8}:[0-9ABCDEF]{4}"/>
+    <input id="single_address" placeholder="03001CAC:CD96" name="name" pattern="[0-9ABCDEF]{8}:[0-9ABCDEF]{4}"/>
+    <textarea id="blob" placeholder="/proc/net/tcp"/>
     <p id="log"></p>
     <script>
-      const input = document.querySelector('input');
-      const log = document.getElementById('log');
+      const input = document.getElementById("single_address");
+      const blob = document.getElementById("blob");
 
-      input.addEventListener('change', updateValue);
+      const log = document.getElementById("log");
+
+      input.addEventListener("change", updateValue);
+      blob.addEventListener("change", bulkUpdateValue);
+
+      function bulkUpdateValue(e) {
+        const lines = e.target.val().split('\n');
+        for (var i = 0; i != lines.length; ++i) {
+          try {
+            const address = lines[i].split(" ")[3].split(":");
+            log.textContent += `${parse_address(address)} `;
+          }
+          catch(e) {
+            console.error(`Oops: ${e}`);
+          }
+        }
+      }
+
+      function parse_address(address) {
+        function little_endian_to_dec(l) {
+          return l.match(/.{1,2}/g).map(x=>parseInt(x, 16)).reverse();
+        }
+
+        return `${little_endian_to_dec(address[0]).join(".")}:${parseInt(address[1], 16)}`;
+      }
 
       function updateValue(e) {
         if (!e.target.validity.valid) {
@@ -24,13 +49,8 @@
           return;
         }
 
-        function little_endian_to_dec(l) {
-          return l.match(/.{1,2}/g).map(x=>parseInt(x, 16)).reverse();
-        }
-
         const address = e.target.value.split(":");
-        log.textContent = little_endian_to_dec(address[0]).join(".");
-        log.textContent += ":" + parseInt(address[1], 16);
+        log.textContent = parse_address(address);
       }
 
       fetch("https://api.github.com/repos/asasvari/lazy/contents/web_hack/proctcp.html")
