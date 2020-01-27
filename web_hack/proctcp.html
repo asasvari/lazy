@@ -1,7 +1,14 @@
 <html>
-  <head><title>Headless🐔</title></head>
+  <head>
+    <title>🐔Headless🐔</title>
+    <style>
+      input:invalid {
+        border: red solid 3px;
+      }
+    </style>
+  </head>
   <body>
-    <input placeholder="Enter some text like 03001CAC:CD96" name="name" pattern="[0-9ABCDE]{8}:[0-9ABCDE]{2}"/>
+    <input placeholder="03001CAC:CD96" name="name" pattern="[0-9ABCDE]{8}:[0-9ABCDE]{2}"/>
     <p id="log"></p>
     <script>
       const input = document.querySelector('input');
@@ -10,6 +17,10 @@
       input.addEventListener('change', updateValue);
 
       function updateValue(e) {
+        if (!e.target.validity.valid) {
+          log.textContent = "Invalid";
+          return;
+        }
         log.textContent = e.target.value.split(":")[0].match(/.{1,2}/g).map(x=>parseInt(x,16)).reverse().join(".");
       }
     </script>
