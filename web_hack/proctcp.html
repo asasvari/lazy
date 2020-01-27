@@ -26,7 +26,7 @@
         const lines = e.target.value.split('\n');
         for (var i = 0; i != lines.length; ++i) {
           try {
-            const address = lines[i].split(" ")[3].split(":");
+            const address = lines[i].trim().split(" ")[2].split(":");
             log.textContent += `${parse_address(address)} `;
           }
           catch(e) {
@@ -49,7 +49,7 @@
           return;
         }
 
-        const address = e.target.value.split(":");
+        const address = e.target.value.trim().split(":");
         log.textContent = parse_address(address);
       }
 
