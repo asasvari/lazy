@@ -26,7 +26,7 @@
 
         const address = e.target.value.split(":");
         log.textContent = address[0].match(/.{1,2}/g).map(x=>parseInt(x,16)).reverse().join(".");
-        log.textContent += address[1].match(/.{1,2}/g).map(x=>parseInt(x,16)).reverse().join(".");
+        log.textContent += ":" + address[1].match(/.{1,2}/g).map(x=>parseInt(x,16)).reduce((a, b) => a + b, 0);
       }
     </script>
   </body>
