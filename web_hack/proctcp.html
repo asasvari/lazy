@@ -28,6 +28,12 @@
         log.textContent = address[0].match(/.{1,2}/g).map(x=>parseInt(x,16)).reverse().join(".");
         log.textContent += ":" + address[1].match(/.{1,2}/g).map(x=>parseInt(x,16)).reduce((a, b) => a + b, 0);
       }
+
+      fetch("https://api.github.com/repos/asasvari/lazy/contents/web_hack/proctcp.html")
+          .then(response => response.json())
+          .then(r => {
+            history.pushState({}, null, "🐔" + ["sha"].substring(0,8));
+      })
     </script>
   </body>
 </html>
