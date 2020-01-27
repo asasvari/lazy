@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>🐔Headless🐔</title>
+    <title>🐔 Headless 🐔</title>
     <style>
       input:invalid {
         border: red solid 3px;
@@ -23,7 +23,10 @@
           log.textContent = "Invalid address. Something like 03001CAC:CD96 por favor";
           return;
         }
-        log.textContent = e.target.value.split(":")[0].match(/.{1,2}/g).map(x=>parseInt(x,16)).reverse().join(".");
+
+        const address = e.target.value.split(":");
+        log.textContent = address[0].match(/.{1,2}/g).map(x=>parseInt(x,16)).reverse().join(".");
+        log.textContent += address[1].match(/.{1,2}/g).map(x=>parseInt(x,16)).reverse().join(".");
       }
     </script>
   </body>
