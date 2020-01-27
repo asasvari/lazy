@@ -37,7 +37,8 @@
           .then(response => response.json())
           .then(r => {
             document.title = `🤘${r["sha"].substring(0,8)}`;
-      })
+          })
+          .catch(e => console.error(`Oops: ${e}`))
     </script>
   </body>
 </html>
