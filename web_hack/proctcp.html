@@ -23,7 +23,7 @@
       blob.addEventListener("change", bulkUpdateValue);
 
       function bulkUpdateValue(e) {
-        const lines = e.target.val().split('\n');
+        const lines = e.target.value.split('\n');
         for (var i = 0; i != lines.length; ++i) {
           try {
             const address = lines[i].split(" ")[3].split(":");
