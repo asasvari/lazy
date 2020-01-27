@@ -24,9 +24,13 @@
           return;
         }
 
+        function little_endian_to_dec(l) {
+          return l.match(/.{1,2}/g).map(x=>parseInt(x,16)).reverse();
+        }
+
         const address = e.target.value.split(":");
-        log.textContent = address[0].match(/.{1,2}/g).map(x=>parseInt(x,16)).reverse().join(".");
-        log.textContent += ":" + address[1].match(/.{1,2}/g).map(x=>parseInt(x,16)).reduce((a, b) => a + b, 0);
+        log.textContent = little_endian_to_dec(address[0].join('.'));
+        log.textContent += ":" + little_endian_to_dec(address[1]).join("");
       }
 
       fetch("https://api.github.com/repos/asasvari/lazy/contents/web_hack/proctcp.html")
