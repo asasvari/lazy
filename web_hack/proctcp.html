@@ -32,7 +32,7 @@
       fetch("https://api.github.com/repos/asasvari/lazy/contents/web_hack/proctcp.html")
           .then(response => response.json())
           .then(r => {
-            history.pushState({}, null, "🐔" + r["sha"].substring(0,8));
+            document.title = `🤘${r["sha"].substring(0,8)}`;
       })
     </script>
   </body>
