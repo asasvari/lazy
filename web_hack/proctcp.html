@@ -25,12 +25,14 @@
       blob.addEventListener("change", bulkUpdateValue);
 
       function bulkUpdateValue(e) {
+        const max_width = "02001CAC:2328 [172.280.000.300:56218]".length;
         const lines = e.target.value.split('\n');
-        out.textContent += "      LOCALE ADDRESS                   REMOTE_ADDRESS\n";
+        out.textContent += "LOCALE ADDRESS                           REMOTE_ADDRESS\n";
         for (var i = 0; i != lines.length; ++i) {
           try {
             const address = lines[i].trim().split(" ")[2].split(":");
-            out.textContent += `${lines[i].trim().split(" ")[1]} [${parse_address(address)}] -> `;
+            const locale = `${lines[i].trim().split(" ")[1]} [${parse_address(address)}]`;
+            out.textContent += `${locale}${" ".repeat(max_width - locale.length)} -> `;
             out.textContent += `${lines[i].trim().split(" ")[2]} [${parse_address(address)}]\n`;
           }
           catch(e) {
