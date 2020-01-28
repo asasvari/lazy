@@ -26,11 +26,12 @@
 
       function bulkUpdateValue(e) {
         const lines = e.target.value.split('\n');
+        out.textContent += "LOCALE ADDRESS                         REMOTE_ADDRESS"\n";
         for (var i = 0; i != lines.length; ++i) {
           try {
             const address = lines[i].trim().split(" ")[2].split(":");
             out.textContent += `${lines[i].trim().split(" ")[1]} [${parse_address(address)}] -> `;
-            out.textContent += `${lines[i].trim().split(" ")[2]} [${parse_address(address)}]`;
+            out.textContent += `${lines[i].trim().split(" ")[2]} [${parse_address(address)}]\n`;
           }
           catch(e) {
             console.error(`Oops: ${e}`);
