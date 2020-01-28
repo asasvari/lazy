@@ -10,7 +10,7 @@
   <body>
     <h1>Yo!</h1>
     <h2>Give me an address to parse from /proc/net/tcp</h2>
-    <input id="single_address" placeholder="03001CAC:CD96" name="name" pattern="[0-9ABCDEF]{8}:[0-9ABCDEF]{4}"/>
+    <input id="single_address" hidden placeholder="03001CAC:CD96" name="name" pattern="[0-9ABCDEF]{8}:[0-9ABCDEF]{4}"/>
     <br/>
     <textarea contenteditable id="blob" style="white-space: pre-wrap;" placeholder="/proc/net/tcp"></textarea>
     <div contenteditable id="out" style="white-space: pre-wrap; font-family: monospace;"></div>
@@ -27,7 +27,7 @@
       function bulkUpdateValue(e) {
         const max_width = "02001CAC:2328 [172.280.000.300:56218]".length;
         const lines = e.target.value.split('\n');
-        out.textContent += "LOCALE ADDRESS                           REMOTE_ADDRESS\n";
+        out.textContent += "LOCALE ADDRESS                           REMOTE ADDRESS\n";
         for (var i = 0; i != lines.length; ++i) {
           try {
             const address = lines[i].trim().split(" ")[2].split(":");
