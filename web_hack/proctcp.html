@@ -12,12 +12,13 @@
     <h2>Give me an address to parse from /proc/net/tcp</h2>
     <input id="single_address" placeholder="03001CAC:CD96" name="name" pattern="[0-9ABCDEF]{8}:[0-9ABCDEF]{4}"/>
     <br/>
-    <div contenteditable id="blob" style="white-space: pre-wrap;" placeholder="/proc/net/tcp"></div>
+    <textarea contenteditable id="blob" style="white-space: pre-wrap;" placeholder="/proc/net/tcp"></textarea>
+    <div contenteditable id="out" style="white-space: pre-wrap;"></div>
     <p id="log"></p>
     <script>
       const input = document.getElementById("single_address");
       const blob = document.getElementById("blob");
-
+      const out = document.getElementById("out");
       const log = document.getElementById("log");
 
       input.addEventListener("change", updateValue);
@@ -28,7 +29,7 @@
         for (var i = 0; i != lines.length; ++i) {
           try {
             const address = lines[i].trim().split(" ")[2].split(":");
-            blob.textContent += `${lines[i].trim().split(" ")[2]} - ${parse_address(address)}\n`;
+            out.textContent += `${lines[i].trim().split(" ")[2]} -> ${parse_address(address)}\n`;
           }
           catch(e) {
             console.error(`Oops: ${e}`);
