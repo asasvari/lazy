@@ -26,7 +26,7 @@
 
       function bulkUpdateValue(e) {
         const lines = e.target.value.split('\n');
-        out.textContent += "LOCALE ADDRESS                         REMOTE_ADDRESS"\n";
+        out.textContent += "      LOCALE ADDRESS                   REMOTE_ADDRESS\n";
         for (var i = 0; i != lines.length; ++i) {
           try {
             const address = lines[i].trim().split(" ")[2].split(":");
